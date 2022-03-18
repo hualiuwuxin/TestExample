@@ -48,6 +48,7 @@ public class FDFSUtilTest {
 		byte[] fileData = FDFSUtil.downloadFile("group1/M00/00/00/CgoKC2IzRIOAT29CAAG12DC05xo350.png");
 		
 		FileUtils.writeByteArrayToFile(new File("C:\\Users\\ZHANGYUKUN\\Desktop\\1.png"), fileData);
+		System.out.println("下载了文件");
 	}
 	
 	/**
@@ -80,6 +81,24 @@ public class FDFSUtilTest {
 		byte[] fileData = FDFSUtil.downloadSice("group1/M00/00/00/CgoKC2IzbhOAeKleAAG12DC05xo474.png");
 		
 		FileUtils.writeByteArrayToFile(new File("C:\\Users\\ZHANGYUKUN\\Desktop\\3.png"), fileData);
+	}
+	
+	@Test
+	public void delete() throws IOException, MyException {
+		String fileId = "group1/M00/00/00/CgoKC2Izc3GAE_YmAAG12DC05xo325.png";
+		
+		byte[] fileData = null;
+		
+		fileData = FDFSUtil.downloadFile(fileId);
+		System.out.println( fileData.length );
+		FDFSUtil.delete(fileId);
+		fileData = FDFSUtil.downloadFile(fileId);
+		if( fileData == null  ) {
+			System.out.println("删除文件完成");
+		}else {
+			System.out.println("文件还在");
+		}
+		
 	}
 	
 	

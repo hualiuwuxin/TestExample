@@ -140,6 +140,20 @@ public class FDFSUtil {
 	}
 	
 	
+	/**
+	 * 删除文件（备注fdfs文件删除了的瞬间还取得到）
+	 * @param fileId
+	 * @throws IOException
+	 * @throws MyException
+	 */
+	public static void delete( String fileId) throws IOException, MyException {
+		StorageClient1 client = FDFSUtil.getClient();
+		int state = client.delete_file1(fileId);
+		if( state != 0 ) {
+			throw new RuntimeException("文件下载失败");
+		}
+	}
+	
 	
 
 }
