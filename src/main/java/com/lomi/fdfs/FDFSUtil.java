@@ -34,7 +34,8 @@ public class FDFSUtil {
 	public static void init(String configPath) throws IOException, MyException {
 		
 		 String conf_filename = new FDFSUtil().getClass().getClassLoader().getResource(configPath).getPath().replaceAll("%20"," ");
-         ClientGlobal.init(conf_filename);
+         //ClientGlobal.initByProperties(conf_filename);
+		 ClientGlobal.init(conf_filename);
          
          trackerClient = new TrackerClient();
          
@@ -44,6 +45,8 @@ public class FDFSUtil {
          //如果不指定组名是通过cmd查询出来的存储位置，知道了组名就知道storage 的ip端口和store位置
          //只要是有多个storage,那么storageServer就应该每次获取
          storageServer = trackerClient.getStoreStorage(trackerServer);
+         //如果是多节点，那么应该通过groupName 来获取storage
+         //storageServer = trackerClient.getStoreStorage(trackerServer,"group1");
          storageClient = new StorageClient1(trackerServer, storageServer);
 	}
 

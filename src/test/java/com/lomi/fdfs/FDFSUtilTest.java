@@ -14,6 +14,7 @@ public class FDFSUtilTest {
 	@Before
 	public void init() throws IOException, MyException {
 		 FDFSUtil.init("fdfs/fdfs_client.conf");
+		// FDFSUtil.init("fdfs/fdfs.properties");
 	}
 	
 	
@@ -24,12 +25,12 @@ public class FDFSUtilTest {
 	 */
 	@Test
 	public void updload() throws IOException, MyException {
-         byte[] fileData =  FileUtils.readFileToByteArray(new File( "C:\\Users\\ZHANGYUKUN\\Desktop\\QQ截图20220317164211.png" ));
+         byte[] fileData =  FileUtils.readFileToByteArray(new File( "C:\\Users\\ZHANGYUKUN\\Desktop\\1.png" ));
          
          //设置元数据
          NameValuePair[] metaList = new NameValuePair[3];
          metaList[0] = new NameValuePair("fileName", "");
-         metaList[1] = new NameValuePair("fileExtName", "");
+         metaList[1] = new NameValuePair("fileExtName", "png");
          metaList[2] = new NameValuePair("fileLength", String.valueOf( fileData.length ));
 
          
@@ -45,9 +46,11 @@ public class FDFSUtilTest {
 	 */
 	@Test
 	public void download() throws IOException, MyException {
-		byte[] fileData = FDFSUtil.downloadFile("group1/M00/00/00/CgoKC2IzRIOAT29CAAG12DC05xo350.png");
 		
-		FileUtils.writeByteArrayToFile(new File("C:\\Users\\ZHANGYUKUN\\Desktop\\1.png"), fileData);
+		byte[] fileData = FDFSUtil.downloadFile("group1/M00/00/00/wKgByGI0rieAQZO5ABA07LqR8Rk.tar.gz");
+		
+		FileUtils.writeByteArrayToFile(new File("C:\\Users\\ZHANGYUKUN\\Desktop\\a\\"+ 1 +".tar.gz"), fileData);
+		
 		System.out.println("下载了文件");
 	}
 	
