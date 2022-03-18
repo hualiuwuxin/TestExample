@@ -12,7 +12,7 @@ import org.csource.fastdfs.TrackerServer;
 
 
 /**
- * FDSF¹¤¾ß£¬ÊÊÓÃÓÚµ¥tracker£¬µ¥storageµÄÇé¿ö
+ * FDSFå·¥å…·ï¼Œé€‚ç”¨äºå•trackerï¼Œå•storageçš„æƒ…å†µ
  * @author ZHANGYUKUN
  *
  */
@@ -24,7 +24,7 @@ public class FDFSUtil {
 	private static StorageClient1 storageClient;
 	
 	/**
-	 * ³õÊ¼»¯
+	 * åˆå§‹åŒ–
 	 * @param configPath
 	 * @throws IOException
 	 * @throws MyException
@@ -36,29 +36,29 @@ public class FDFSUtil {
          
          trackerClient = new TrackerClient();
          
-         //»ñÈ¡trackerServerÊÇÂÖÑ¯µÄ(Ò²¾ÍÊÇËµÈç¹ûÊÇ¶à½ÚµãµÄtracker,ÕâĞĞ¾õµÃÂÖÑ¯²»ºÃ£¬¿ÉÒÔ¼Ì³ĞĞŞ¸Ä»ñÈ¡¸ºÔØ¾ùºâ²ßÂÔ)
+         //è·å–trackerServeræ˜¯è½®è¯¢çš„(ä¹Ÿå°±æ˜¯è¯´å¦‚æœæ˜¯å¤šèŠ‚ç‚¹çš„tracker,è¿™è¡Œè§‰å¾—è½®è¯¢ä¸å¥½ï¼Œå¯ä»¥ç»§æ‰¿ä¿®æ”¹è·å–è´Ÿè½½å‡è¡¡ç­–ç•¥)
          trackerServer = trackerClient.getConnection();
          
-         //Èç¹û²»Ö¸¶¨×éÃûÊÇÍ¨¹ıcmd²éÑ¯³öÀ´µÄ´æ´¢Î»ÖÃ£¬ÖªµÀÁË×éÃû¾ÍÖªµÀstorage µÄip¶Ë¿ÚºÍstoreÎ»ÖÃ
-         //Ö»ÒªÊÇÓĞ¶à¸östorage,ÄÇÃ´storageServer¾ÍÓ¦¸ÃÃ¿´Î»ñÈ¡
+         //å¦‚æœä¸æŒ‡å®šç»„åæ˜¯é€šè¿‡cmdæŸ¥è¯¢å‡ºæ¥çš„å­˜å‚¨ä½ç½®ï¼ŒçŸ¥é“äº†ç»„åå°±çŸ¥é“storage çš„ipç«¯å£å’Œstoreä½ç½®
+         //åªè¦æ˜¯æœ‰å¤šä¸ªstorage,é‚£ä¹ˆstorageServerå°±åº”è¯¥æ¯æ¬¡è·å–
          storageServer = trackerClient.getStoreStorage(trackerServer);
          storageClient = new StorageClient1(trackerServer, storageServer);
 	}
 
 
 	/**
-	 * »ñÈ¡storageClient
+	 * è·å–storageClient
 	 * @return
 	 */
 	public static StorageClient1 getClient() {
 		if( storageClient == null ) {
-			throw new RuntimeException("ĞèÒª³õÊ¼»¯");
+			throw new RuntimeException("éœ€è¦åˆå§‹åŒ–");
 		}
 		return storageClient;
 	}
 	
 	/**
-	 * ÉÏ´«
+	 * ä¸Šä¼ 
 	 * @param fileData
 	 * @param metaList
 	 * @return
@@ -72,7 +72,7 @@ public class FDFSUtil {
 	}
 	
 	/**
-	 * ÏÂÔØÎÄ¼ş
+	 * ä¸‹è½½æ–‡ä»¶
 	 * @param fileId
 	 * @return
 	 * @throws IOException

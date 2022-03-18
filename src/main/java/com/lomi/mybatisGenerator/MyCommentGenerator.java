@@ -24,12 +24,12 @@ import org.mybatis.generator.config.MergeConstants;
 import org.mybatis.generator.config.PropertyRegistry;
 
 /**
- * ÃèÊö£º
+ * æè¿°ï¼š
  * @since 1.9.10
  * @version 1.9.10
- * @×÷Õß£ºniexiaohui
- * @´´½¨Ê±¼ä£º2016Äê11ÔÂ22ÈÕ
- * @ĞŞ¸Ä¼ÇÂ¼£º
+ * @ä½œè€…ï¼šniexiaohui
+ * @åˆ›å»ºæ—¶é—´ï¼š2016å¹´11æœˆ22æ—¥
+ * @ä¿®æ”¹è®°å½•ï¼š
  */
 public class MyCommentGenerator implements CommentGenerator{
     private Properties properties;
