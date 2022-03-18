@@ -11,9 +11,11 @@
 		        <property name="suppressAllComments" value="true" />
 		</commentGenerator> -->
 		
+		<!-- MyCommentGenerator 生成注释  -->
 		<commentGenerator type="com.lomi.mybatisGenerator.MyCommentGenerator">
         </commentGenerator>
 
+		<!-- 数据库地址密码协议 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
 			connectionURL="jdbc:mysql://10.118.3.1:3313/uk-user?characterEncoding=utf8"
 			userId="root" password="myPassswd123">
@@ -41,7 +43,6 @@
 		</javaClientGenerator>
 
 
-			
 			
 		<!-- 表映射 -->
 		<table tableName="user_org" domainObjectName="UserOrg"
