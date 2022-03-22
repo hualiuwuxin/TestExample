@@ -15,9 +15,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 
-@Api(tags="rds测试")
-@RestController
-@RequestMapping(value = "/rds")
+//@Api(tags="rds测试")
+//@RestController
+///@RequestMapping(value = "/rds")
 public class RdsController extends BaseController {
 	private static final Logger logger = LoggerFactory.getLogger(RdsController.class);
 
