@@ -1,7 +1,8 @@
 package com.lomi.entity;
 
 import com.lomi.utils.CodeUtil;
-import com.lomi.utils.IdUtil;
+
+import cn.hutool.core.util.IdUtil;
 
 public class Goods {
     private Long id;
@@ -66,7 +67,7 @@ public class Goods {
     
 	public static Goods randomGoods() {
     	Goods goods = new Goods();
-		goods.setId(IdUtil.getPrimaryKey());
+		goods.setId(IdUtil.getSnowflakeNextId());
 		goods.setData(  CodeUtil.getRandomNum18() );
 		goods.setDes( CodeUtil.randomCode(6) );
 		goods.setName( CodeUtil.randomCode(3) );
