@@ -20,8 +20,8 @@
 			connectionURL="jdbc:mysql://10.118.3.1:3313/hzx-system?characterEncoding=utf8"
 			userId="root" password="myPassswd123">
 		</jdbcConnection>
-
-
+		
+		
 		<!--生成entity类存放位置 -->
 		<javaModelGenerator
 			targetPackage="com.xyebank.hzx.system.dao.entity"
@@ -29,13 +29,17 @@
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
+		
+		
 
-	
 		<!--生成映射文件存放位置 -->
 		<sqlMapGenerator targetPackage="mapper"
 			targetProject="TestExample/src/main/resources">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
+
+	
+	
 
 		<!--生成Dao类存放位置 -->
 		<javaClientGenerator type="XMLMAPPER"
@@ -47,7 +51,7 @@
 
 			
 		<!-- 表映射 -->
-		<table tableName="user_org" domainObjectName="SysBankCity"
+		<table tableName="sys_bank_city" domainObjectName="SysBankCity"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false">

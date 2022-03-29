@@ -95,7 +95,11 @@ public class BeanUtils {
 
 			for (Object item : list) {
 				T rtItem = outCls.getDeclaredConstructor().newInstance();
-				BeanUtils.copyProperties(item, rtItem, false);
+				if( item == null || item.getClass().equals( outCls ) ) {
+					rtItem = (T) item;
+				}else {
+					BeanUtils.copyProperties(item, rtItem, false);
+				}
 				rtList.add(rtItem);
 			}
 
