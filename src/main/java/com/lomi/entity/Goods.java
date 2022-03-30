@@ -14,6 +14,11 @@ public class Goods {
     private String des;
 
     private String data;
+    
+    public Goods( String name ) {
+    	this.name = name;
+    }
+    public Goods() {}
 
     public Long getId() {
         return id;
@@ -26,9 +31,14 @@ public class Goods {
     public String getName() {
         return name;
     }
+    
+    public String name(int  i) {
+        return "name·½·¨" + i;
+    }
 
-    public void setName(String name) {
+    public Goods setName(String name) {
         this.name = name == null ? null : name.trim();
+        return this;
     }
 
     public Integer getStock() {
