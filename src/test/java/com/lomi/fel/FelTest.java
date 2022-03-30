@@ -23,7 +23,7 @@ import com.greenpineyu.fel.function.CommonFunction;
 import com.greenpineyu.fel.function.Function;
 import com.lomi.entity.Goods;
 
-public class Fel {
+public class FelTest {
 
 	// 使用常量
 	@Test
@@ -253,13 +253,42 @@ public class Fel {
 	            if(arguments!= null && arguments.length>0){   
 	                msg = arguments[0];   
 	            }   
-	            return ObjectUtils.toString(msg);   
+	            return "say:" + ObjectUtils.toString(msg);   
 	        }   
 	  
-	    };   
+	    };  
+	    
+	    
+	    Function addFun = new CommonFunction() {   
+	  	  
+	        public String getName() {   
+	            return "add";   
+	        }   
+	           
+	        @Override   
+	        public Object call(Object[] arguments) {   
+	        	if(arguments== null || arguments.length != 2){   
+	              throw new RuntimeException("参数异常");
+	            }   
+	        	
+	        	int a = (int)arguments[0];
+	        	int b = (int)arguments[1];
+	        	
+	            return a+b;   
+	        }   
+	  
+	    };  
+	    
+	    
+	    
+	    
+	    
 	    FelEngine e = new FelEngineImpl();   
 	    //添加函数到引擎中。   
 	    e.addFun(fun);   
+	    e.addFun(addFun);
+	    
+	    
 	    String exp = "hello('fel')";   
 	    //解释执行   
 	    Object eval = e.eval(exp);   
@@ -268,6 +297,14 @@ public class Fel {
 	    Expression compile = e.compile(exp, null);   
 	    eval = compile.eval(null);   
 	    System.out.println("hello "+eval);
+	    
+	    
+	    
+	    
+	    System.out.println( e.eval("hello( add(3,2) )") );
+	    
+	    
+	    
 	    
 	    
 	}
