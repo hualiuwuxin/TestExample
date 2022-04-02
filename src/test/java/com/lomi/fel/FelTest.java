@@ -382,6 +382,34 @@ public class FelTest {
 	}
 	
 	
+	
+	@Test
+	public void test15() {
+		FelEngine felEngine = new FelEngineImpl();   
+		felEngine.addFun( new Add2() );
+		FelContext  context = felEngine.getContext();
+		context.set("a", 10);
+		context.set("b", 1);
+		
+		Object evalRt = felEngine.eval("add('asdqwkel',1)");
+		System.out.println( evalRt );
+		
+	}
+	
+	/**
+	 * 覆盖 com.greenpineyu.fel.function.operator 下面的 +，-，*，/,=,等可以从定义这些符号，比如让  1==2 返回true
+	 */
+	@Test
+	public void testEqual() {
+		FelEngine felEngine = new FelEngineImpl();   
+		
+		Object evalRt = felEngine.eval("1==2");
+		System.out.println( evalRt );
+		
+	}
+	
+	
+	
 	class Add extends CommonFunction{
 		@Override
 		public String getName() {
@@ -411,6 +439,8 @@ public class FelTest {
 
 		@Override
 		public Integer call(Object[] arguments) {
+			System.out.println(  JSONObject.toJSONString( arguments ) );
+			
 			Integer a = (Integer)arguments[0] + (Integer)arguments[1];
 			context.set("a", a);
 			return a;
