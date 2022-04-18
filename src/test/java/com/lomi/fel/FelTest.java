@@ -15,20 +15,26 @@ import com.greenpineyu.fel.Expression;
 import com.greenpineyu.fel.FelEngine;
 import com.greenpineyu.fel.FelEngineImpl;
 import com.greenpineyu.fel.common.ObjectUtils;
+import com.greenpineyu.fel.compile.SourceBuilder;
 import com.greenpineyu.fel.context.AbstractContext;
 import com.greenpineyu.fel.context.ContextChain;
 import com.greenpineyu.fel.context.FelContext;
 import com.greenpineyu.fel.context.MapContext;
 import com.greenpineyu.fel.function.CommonFunction;
 import com.greenpineyu.fel.function.Function;
+import com.greenpineyu.fel.parser.ConstNode;
 import com.greenpineyu.fel.parser.FelNode;
+import com.greenpineyu.fel.parser.FunNode;
+import com.greenpineyu.fel.parser.VarAstNode;
 import com.lomi.entity.Goods;
+
+import net.bytebuddy.implementation.bind.annotation.Super;
 
 public class FelTest {
 
 	
 	/**
-	 * Ê¹ÓÃ³£Á¿
+	 * ä½¿ç”¨å¸¸é‡
 	 */
 	@Test
 	public void test0() {
@@ -39,7 +45,7 @@ public class FelTest {
 	
 
 	/**
-	 * Ê¹ÓÃ±äÁ¿
+	 * ä½¿ç”¨å˜é‡
 	 */
 	@Test
 	public void test2() {
@@ -52,7 +58,7 @@ public class FelTest {
 	}
 
 	/**
-	 * Ê¹ÓÃ±äÁ¿µÄ·½·¨ºÍÊôĞÔ
+	 * ä½¿ç”¨å˜é‡çš„æ–¹æ³•å’Œå±æ€§
 	 */
 	@Test
 	public void test3() {
@@ -65,37 +71,37 @@ public class FelTest {
 		map.put("key1", "value1");
 		ctx.set("map", map);
 
-		//È¡²»´æÔÚµÄ·½·¨ÊôĞÔ,·µ»Ønull
+		//å–ä¸å­˜åœ¨çš„æ–¹æ³•å±æ€§,è¿”å›null
 		Object result = felEngine.eval("good.size");
 		System.out.println("result:" + result);
 
-		//µ÷ÓÃgoodµÄtoString
+		//è°ƒç”¨goodçš„toString
 		result = felEngine.eval("good.toString");
 		System.out.println("result:" + result);
 
-		//»ñÈ¡name£¨·Ö±ğµ÷ÓÃ  name() ·½·¨ ºÍ  getName() ·½·¨£¬name(ÓÅÏÈ) £¬²»»áÈ¡Ö±½Ó»ñÈ¡Ë½ÓĞ×Ö¶Î£©
+		//è·å–nameï¼ˆåˆ†åˆ«è°ƒç”¨  name() æ–¹æ³• å’Œ  getName() æ–¹æ³•ï¼Œname(ä¼˜å…ˆ) ï¼Œä¸ä¼šå–ç›´æ¥è·å–ç§æœ‰å­—æ®µï¼‰
 		result = felEngine.eval("good.name");
 		System.out.println("result:" + result);
 		
-		//µ÷ÓÃÓĞ²Î·½·¨  name(int  i) 
+		//è°ƒç”¨æœ‰å‚æ–¹æ³•  name(int  i) 
 		result = felEngine.eval("good.name(1)");
 		System.out.println("result:" + result);
 		
 
-		//»ñÈ¡ map µÄ value
+		//è·å– map çš„ value
 		result = felEngine.eval("map.key1");
 		System.out.println("result:" + result);
 	}
 
 	/**
-	 * Ê¹ÓÃ¼¯ºÏ£¬Ö±½ÓÓÃÏÂ±ê»ñÈ¡ ¼¯ºÏÔªËØ
+	 * ä½¿ç”¨é›†åˆï¼Œç›´æ¥ç”¨ä¸‹æ ‡è·å– é›†åˆå…ƒç´ 
 	 */
 	@Test
 	public void test4() {
 		FelEngine felEngine = new FelEngineImpl();
 		FelContext ctx = felEngine.getContext();
 
-		// Êı×é
+		// æ•°ç»„
 		int[] intArray = { 1, 2, 3 };
 		ctx.set("intArray", intArray);
 		String exp = "intArray[0]";
@@ -107,17 +113,17 @@ public class FelTest {
 		exp = "list[0]";
 		System.out.println(exp + "->" + felEngine.eval(exp));
 
-		// ¼¯ºÏ
+		// é›†åˆ
 		Collection<String> coll = Arrays.asList("a", "b", "c");
 		ctx.set("coll", coll);
-		// »ñÈ¡¼¯ºÏ×îÇ°ÃæµÄÔªËØ¡£Ö´ĞĞ½á¹ûÎª"a"
+		// è·å–é›†åˆæœ€å‰é¢çš„å…ƒç´ ã€‚æ‰§è¡Œç»“æœä¸º"a"
 		exp = "coll[0]";
 		System.out.println(exp + "->" + felEngine.eval(exp));
 
-		// µü´úÆ÷
+		// è¿­ä»£å™¨
 		Iterator<String> iterator = coll.iterator();
 		ctx.set("iterator", iterator);
-		// »ñÈ¡µü´úÆ÷×îÇ°ÃæµÄÔªËØ¡£Ö´ĞĞ½á¹ûÎª"a"
+		// è·å–è¿­ä»£å™¨æœ€å‰é¢çš„å…ƒç´ ã€‚æ‰§è¡Œç»“æœä¸º"a"
 		exp = "iterator[0]";
 		System.out.println(exp + "->" + felEngine.eval(exp));
 
@@ -128,13 +134,13 @@ public class FelTest {
 		exp = "map.name";
 		System.out.println(exp + "->" + felEngine.eval(exp));
 
-		// ¶àÎ¬Êı×é
+		// å¤šç»´æ•°ç»„
 		int[][] intArrays = { { 11, 12 }, { 21, 22 } };
 		ctx.set("intArrays", intArrays);
 		exp = "intArrays[0][0]";
 		System.out.println(exp + "->" + felEngine.eval(exp));
 
-		// ¶àÎ¬×ÛºÏÌå£¬Ö§³ÖÊı×é¡¢¼¯ºÏµÄÈÎÒâ×éºÏ¡£
+		// å¤šç»´ç»¼åˆä½“ï¼Œæ”¯æŒæ•°ç»„ã€é›†åˆçš„ä»»æ„ç»„åˆã€‚
 		List<int[]> listArray = new ArrayList<int[]>();
 		listArray.add(new int[] { 1, 2, 3 });
 		listArray.add(new int[] { 4, 5, 6 });
@@ -144,7 +150,7 @@ public class FelTest {
 	}
 
 	/**
-	 * Ê¹ÓÃÀàµÄ¾²Ì¬·½·¨ºÍnew
+	 * ä½¿ç”¨ç±»çš„é™æ€æ–¹æ³•å’Œnew
 	 */
 	@Test
 	public void test5() {
@@ -157,31 +163,31 @@ public class FelTest {
 		
 		
 		
-		// µ÷ÓÃMath.min(1,2),java.lang°üÏÂÃæµÄ¶¼¿É¼òĞ´
+		// è°ƒç”¨Math.min(1,2),java.langåŒ…ä¸‹é¢çš„éƒ½å¯ç®€å†™
 		System.out.println(FelEngine.instance.eval("$('Math').min(1,2)"));
 		
-		// µ÷ÓÃnew Goods().randomGoods();
+		// è°ƒç”¨new Goods().randomGoods();
 		System.out.println(FelEngine.instance.eval("$('com.lomi.entity.Goods.new').randomGoods()"));
 		
-		//¸Ğ¾õÕâÍæÒâ¿ÉÒÔÓÃÁ´Ê½±à³Ì¶¯Ì¬±à³Ì(Èç¹û²»¿¼ÂÇĞ§ÂÊµÄ»°)
-		ctx.set("name1", "ÕÅÈı");
+		//æ„Ÿè§‰è¿™ç©æ„å¯ä»¥ç”¨é“¾å¼ç¼–ç¨‹åŠ¨æ€ç¼–ç¨‹(å¦‚æœä¸è€ƒè™‘æ•ˆç‡çš„è¯)
+		ctx.set("name1", "å¼ ä¸‰");
 		System.out.println(FelEngine.instance.eval("$('com.lomi.entity.Goods.new').setName(name1)",ctx));
 		
 		
 	}
 
 	/**
-	 * Ê¹ÓÃÉÏÏÂÎÄµÄ²ÎÊı
+	 * ä½¿ç”¨ä¸Šä¸‹æ–‡çš„å‚æ•°
 	 */
 	@Test
 	public void test6() {
-		// ¸ºÔğÌá¹©ÆøÏó·şÎñµÄÉÏÏÂÎÄ»·¾³
+		// è´Ÿè´£æä¾›æ°”è±¡æœåŠ¡çš„ä¸Šä¸‹æ–‡ç¯å¢ƒ
 		FelContext ctx = new AbstractContext() {
 			public Object get(String name) {
-				if ("ÌìÆø".equals(name)) {
-					return "Çç";
+				if ("å¤©æ°”".equals(name)) {
+					return "æ™´";
 				}
-				if ("ÎÂ¶È".equals(name)) {
+				if ("æ¸©åº¦".equals(name)) {
 					return 25;
 				}
 				return null;
@@ -191,12 +197,12 @@ public class FelTest {
 		
 		
 		FelEngine felEngine = new FelEngineImpl(ctx);
-		Object eval = felEngine.eval("'ÌìÆø:'+ÌìÆø+';ÎÂ¶È:'+ÎÂ¶È");
+		Object eval = felEngine.eval("'å¤©æ°”:'+å¤©æ°”+';æ¸©åº¦:'+æ¸©åº¦");
 		System.out.println(eval);
 	}
 
 	/**
-	 * ¶à²ãÉÏÏÂÎÄ£¨ÓĞ¼Ì³Ğ¹ØÏµ£¬ĞÂµÄ¸²¸ÇÀÏµÄÖØ¸´Öµ£©
+	 * å¤šå±‚ä¸Šä¸‹æ–‡ï¼ˆæœ‰ç»§æ‰¿å…³ç³»ï¼Œæ–°çš„è¦†ç›–è€çš„é‡å¤å€¼ï¼‰
 	 */
 	@Test
 	public void test7() {
@@ -214,34 +220,34 @@ public class FelTest {
 		String exp = "b" + "-" + "a";
 		
 		
-		//Ê¹ÓÃÉÏÏÂÎÄ2
+		//ä½¿ç”¨ä¸Šä¸‹æ–‡2
 		Object rt2 = felEngine.eval(exp, ctx2);
 		System.out.println("b-a=" + rt2);
 		
 		
-		//Ê¹ÓÃÉÏÏÂÎÄ1
+		//ä½¿ç”¨ä¸Šä¸‹æ–‡1
 		Object rt = felEngine.eval(exp);
 		System.out.println("b-a=" + rt);
 
 	}
 
 	/**
-	 * ±àÒëÒÔºóÔÚÖ´ĞĞĞ§ÂÊ»á¸ßºÜ¶à(ÏÈ±àÒëºóÖ´ĞĞ£¬Ç°ÌáÊÇ¹«Ê½¹Ì¶¨)
+	 * ç¼–è¯‘ä»¥ååœ¨æ‰§è¡Œæ•ˆç‡ä¼šé«˜å¾ˆå¤š(å…ˆç¼–è¯‘åæ‰§è¡Œï¼Œå‰ææ˜¯å…¬å¼å›ºå®š)
 	 */
 	@Test
 	public void test8() {
 		FelEngine fel = new FelEngineImpl();
 		FelContext ctx = fel.getContext();
-		ctx.set("µ¥¼Û", 5000);
-		ctx.set("ÊıÁ¿", 12);
-		ctx.set("ÔË·Ñ", 7500);
-		Expression exp = fel.compile("µ¥¼Û*ÊıÁ¿+ÔË·Ñ", ctx);
+		ctx.set("å•ä»·", 5000);
+		ctx.set("æ•°é‡", 12);
+		ctx.set("è¿è´¹", 7500);
+		Expression exp = fel.compile("å•ä»·*æ•°é‡+è¿è´¹", ctx);
 		Object result = exp.eval(ctx);
 		System.out.println(result);
 	}
 
 	/**
-	 * ´óÖµ£¨²»ÖªµÀÄÄÀïÓĞ0.9µÄ°æ±¾£©
+	 * å¤§å€¼ï¼ˆä¸çŸ¥é“å“ªé‡Œæœ‰0.9çš„ç‰ˆæœ¬ï¼‰
 	 */
 	@Test
 	public void test9() {
@@ -249,13 +255,13 @@ public class FelTest {
 		 * FelEngine fel = FelBuilder.bigNumberEngine(); String input =
 		 * "111111111111111111111111111111+22222222222222222222222222222222"; Object
 		 * value = fel.eval(input); Object compileValue = fel.compile(input,
-		 * fel.getContext()).eval(fel.getContext()); System.out.println("´óÊıÖµ¼ÆËã£¨½âÊÍÖ´ĞĞ£©:" +
-		 * value); System.out.println("´óÊıÖµ¼ÆËã£¨±àÒëÖ´ĞĞ£©:" + compileValue);
+		 * fel.getContext()).eval(fel.getContext()); System.out.println("å¤§æ•°å€¼è®¡ç®—ï¼ˆè§£é‡Šæ‰§è¡Œï¼‰:" +
+		 * value); System.out.println("å¤§æ•°å€¼è®¡ç®—ï¼ˆç¼–è¯‘æ‰§è¡Œï¼‰:" + compileValue);
 		 */
 	}
 	
 	/**
-	 * ×Ó¶¨Òåº¯Êı
+	 * å­å®šä¹‰å‡½æ•°
 	 */
 	@Test
 	public void test11() {
@@ -284,7 +290,7 @@ public class FelTest {
 	        @Override   
 	        public Object call(Object[] arguments) {   
 	        	if(arguments== null || arguments.length != 2){   
-	              throw new RuntimeException("²ÎÊıÒì³£");
+	              throw new RuntimeException("å‚æ•°å¼‚å¸¸");
 	            }   
 	        	
 	        	int a = (int)arguments[0];
@@ -296,24 +302,24 @@ public class FelTest {
 	    
 	    
 	    FelEngine felEngine = new FelEngineImpl();   
-	    //Ìí¼Óº¯Êıµ½ÒıÇæÖĞ¡£   
+	    //æ·»åŠ å‡½æ•°åˆ°å¼•æ“ä¸­ã€‚   
 	    felEngine.addFun(fun);   
 	    felEngine.addFun(addFun);
 	    
 	    
-	    String exp = "hello('ÄãºÃ')";   
-	    //½âÊÍÖ´ĞĞ   
+	    String exp = "hello('ä½ å¥½')";   
+	    //è§£é‡Šæ‰§è¡Œ   
 	    Object eval = felEngine.eval(exp);   
 	    System.out.println("hello "+eval);   
 	    
 	    
-	    //±àÒëÖ´ĞĞ(±àÒëµÄ¹ı³Ì»áÖ±½ÓÖ´ĞĞÒ»±ß£¬Èç¹ûÕâÊ±ºò ĞŞ¸ÄÁË ÉÏÏÂÎÄµÄ±äÁ¿£¬¾ÍÒª×¢ÒâÁË)
+	    //ç¼–è¯‘æ‰§è¡Œ(ç¼–è¯‘çš„è¿‡ç¨‹ä¼šç›´æ¥æ‰§è¡Œä¸€è¾¹ï¼Œå¦‚æœè¿™æ—¶å€™ ä¿®æ”¹äº† ä¸Šä¸‹æ–‡çš„å˜é‡ï¼Œå°±è¦æ³¨æ„äº†)
 	    Expression compile = felEngine.compile(exp, null);   
 	    eval = compile.eval(null);   
 	    System.out.println("hello "+eval);
 	    
 	    
-	    //º¯ÊıÀïÃæ¿ÉÒÔÌ×º¯Êı( CommonFunction.call.(Object[] arguments) ·½·¨ÀïÃæÄÃµ½µÄ¶¼ÊÇÒÑ¾­°ÉÄÚÇ¶º¯Êı¼ÆËãºÃÁË£¬ÏêÇé¼û¸¸ÀàµÄ CommonFunction.call(FelNode node, FelContext context) )
+	    //å‡½æ•°é‡Œé¢å¯ä»¥å¥—å‡½æ•°( CommonFunction.call.(Object[] arguments) æ–¹æ³•é‡Œé¢æ‹¿åˆ°çš„éƒ½æ˜¯å·²ç»å§å†…åµŒå‡½æ•°è®¡ç®—å¥½äº†ï¼Œè¯¦æƒ…è§çˆ¶ç±»çš„ CommonFunction.call(FelNode node, FelContext context) )
 	    System.out.println( felEngine.eval("hello( add(3,2) )") );
 	}
 	
@@ -321,7 +327,7 @@ public class FelTest {
 	
 	
 	/**
-	 * Ğ§ÂÊ±È½Ï£¬Õı³£¼òµ¥Ïà¼Ó20ÒÚ´Î£¬5Ãë
+	 * æ•ˆç‡æ¯”è¾ƒï¼Œæ­£å¸¸ç®€å•ç›¸åŠ 20äº¿æ¬¡ï¼Œ5ç§’
 	 */
 	@Test
 	public void test12() {
@@ -338,7 +344,7 @@ public class FelTest {
 	}
 	
 	/**
-	 * ½âÊÍÖ´ĞĞÒ²¾Í²î5000 ±¶£¬10W´Î6 Ãë¡£
+	 * è§£é‡Šæ‰§è¡Œä¹Ÿå°±å·®5000 å€ï¼Œ10Wæ¬¡6 ç§’ã€‚
 	 */
 	@Test
 	public void test13() {
@@ -357,7 +363,7 @@ public class FelTest {
 	
 	
 	/**
-	 * ½âÊÍÖ´ĞĞÒ²¾Í²î10¶à20 ±¶£¬2ÒÚ´Î9 Ãë
+	 * è§£é‡Šæ‰§è¡Œä¹Ÿå°±å·®10å¤š20 å€ï¼Œ2äº¿æ¬¡9 ç§’
 	 */
 	@Test
 	public void test14() {
@@ -369,7 +375,7 @@ public class FelTest {
 		FelContext felContext = felEngine.getContext();
 		felContext.set("a", 0 );
 		
-		//²»ÖªµÀÎªÉ¶±àÒë»á°ÑintÀàĞÍ¸Ä³Édouble¡£
+		//ä¸çŸ¥é“ä¸ºå•¥ç¼–è¯‘ä¼šæŠŠintç±»å‹æ”¹æˆdoubleã€‚
 		Expression expression  = felEngine.compile("add(a,1)",felContext);
 		
 		for(int i = 0;i<200000000;i++) {
@@ -386,18 +392,26 @@ public class FelTest {
 	@Test
 	public void test15() {
 		FelEngine felEngine = new FelEngineImpl();   
-		felEngine.addFun( new Add2() );
+		felEngine.addFun( new Add() );
 		FelContext  context = felEngine.getContext();
-		context.set("a", 10);
-		context.set("b", 1);
+		context.set("a", Arrays.asList(3,6,9));
+		context.set("b", Arrays.asList(2,1,3));
+		context.set("c", Arrays.asList(2,2,2));
 		
-		Object evalRt = felEngine.eval("add('asdqwkel',1)");
-		System.out.println( evalRt );
+		
+		Object evalRt = felEngine.eval("add(add(a,b),c)");
+		System.out.println( JSONObject.toJSON( evalRt ) );
+		
+		Object evalRt2 = felEngine.eval("(a+b)+c");
+		System.out.println( JSONObject.toJSON( evalRt2 ) );
+		
+		Object evalRt3 = felEngine.eval("add((a+b),c)");
+		System.out.println( JSONObject.toJSON( evalRt3 ) );
 		
 	}
 	
 	/**
-	 * ¸²¸Ç com.greenpineyu.fel.function.operator ÏÂÃæµÄ +£¬-£¬*£¬/,=,µÈ¿ÉÒÔ´Ó¶¨ÒåÕâĞ©·ûºÅ£¬±ÈÈçÈÃ  1==2 ·µ»Øtrue
+	 * è¦†ç›– com.greenpineyu.fel.function.operator ä¸‹é¢çš„ +ï¼Œ-ï¼Œ*ï¼Œ/,=,ç­‰å¯ä»¥ä»å®šä¹‰è¿™äº›ç¬¦å·ï¼Œæ¯”å¦‚è®©  1==2 è¿”å›true
 	 */
 	@Test
 	public void testEqual() {
@@ -411,16 +425,52 @@ public class FelTest {
 	
 	
 	class Add extends CommonFunction{
+		
 		@Override
 		public String getName() {
 			return "add";
 		}
 
 		@Override
+		public Object call(FelNode node, FelContext context) {
+			return super.call(node, context);
+		}
+
+		@Override
+		public SourceBuilder toMethod(FelNode node, FelContext ctx) {
+			return super.toMethod(node, ctx);
+		}
+
+
+		@Override
 		public Object call(Object[] arguments) {
-			return (Integer)arguments[0] + (Integer)arguments[1];
+			Object args0 = arguments[0];
+			Object args1 = arguments[1];
+			
+			if( args0 instanceof List || args1 instanceof List ) {
+				if( args0 instanceof List && !(args1 instanceof List)  ) {
+					List list0 = (List)args0;
+					return (Integer)(list0.get(0)) + (Integer)args1;
+				}
+				if( !(args0 instanceof List) && (args1 instanceof List)  ) {
+					List list1 = (List)args1;
+					return (Integer)(list1.get(0)) + (Integer)args0;
+				}
+				
+				List<Integer> rt = new ArrayList<>();
+				List list0 = (List)args0;
+				List list1 = (List)args1;
+				for( int i = 0;i<list0.size()&&i<list1.size();i++ ) {
+					rt.add( (Integer)list0.get(i) + (Integer)list1.get(i) );
+				}
+				return rt;
+			}else {
+				return (Integer)args0 + (Integer)args1;
+			}
 		}
 	}
+	
+	
 	
 	class Add2 extends CommonFunction{
 		FelContext context;
@@ -440,7 +490,6 @@ public class FelTest {
 		@Override
 		public Integer call(Object[] arguments) {
 			System.out.println(  JSONObject.toJSONString( arguments ) );
-			
 			Integer a = (Integer)arguments[0] + (Integer)arguments[1];
 			context.set("a", a);
 			return a;

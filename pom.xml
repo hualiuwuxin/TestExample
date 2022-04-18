@@ -157,9 +157,10 @@
 	</dependencies>
 
 
-	<!-- 指定项目jdk版本 -->
+
 	<build>
 		<plugins>
+			<!-- 指定项目jdk版本 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -169,10 +170,31 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+
+			<!-- 打包 -->
+			<plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <!--可以把依赖的包都打包到生成的Jar包中-->
+                            <goal>repackage</goal>
+                        </goals>
+                        <configuration>
+                            <attach>false</attach>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+			
 		</plugins>
 	</build>
 
-
+	<!-- 跳过测试 -->
+	<properties>
+		<skipTests>true</skipTests>
+	</properties>
 
 
 </project>
