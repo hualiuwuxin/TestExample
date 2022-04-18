@@ -5,7 +5,7 @@ spring:
   datasource:
     username: root
     password: root
-    url: jdbc:mysql://127.0.0.1:3306/hl?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=Hongkong&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://10.10.10.233:3306/hl?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=Hongkong&useSSL=false&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.cj.jdbc.Driver  redis:    host: 10.118.3.1
     port: 6485
     password:
