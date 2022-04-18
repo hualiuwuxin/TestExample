@@ -73,8 +73,13 @@
 		    <version>2.5.5</version>
 		</dependency>
 		
-		
-		
+		<!-- aspects -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-aspects</artifactId>
+		    <version>5.3.14</version>
+		</dependency>
+	
 		<!-- mysql -->
 		<dependency>
 			<groupId>mysql</groupId>
