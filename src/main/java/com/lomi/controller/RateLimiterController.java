@@ -22,6 +22,7 @@ public class RateLimiterController extends BaseController {
 
 	RateLimiter rateLimiter = RateLimiter.create(1);
 	
+	
 	@ApiOperation(value = "限流每秒一个")
 	@RequestMapping(value = "limiterOne", method = { RequestMethod.GET })
 	public String t1(ExecuteIn in) throws Exception {
