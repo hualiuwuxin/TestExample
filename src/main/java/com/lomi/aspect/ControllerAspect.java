@@ -19,7 +19,7 @@ public class ControllerAspect {
     
     
     @Around(CUT)
-	public Object doAround(ProceedingJoinPoint joinPoint) {
+	public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
 		Object result = null;
 		try {
 			Long start = System.currentTimeMillis();
@@ -28,7 +28,7 @@ public class ControllerAspect {
 			Long end = System.currentTimeMillis();
 			logger.warn(joinPoint.getSignature().getName() +"--------------"+ "耗时:{}" ,(end - start) );
 		} catch (Throwable e) {
-			e.printStackTrace();
+			throw e;
 		}
 		
 		return result;

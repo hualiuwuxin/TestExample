@@ -13,7 +13,7 @@ spring:
 
 ## web ##
 server:  servlet:    context-path: /TestExample
-  port: 3260
+  port: 80
 
 
 mybatis:
