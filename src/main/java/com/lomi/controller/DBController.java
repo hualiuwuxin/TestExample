@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lomi.annotation.ShowParam;
 import com.lomi.entity.Goods;
 import com.lomi.entity.in.BatchIn;
 import com.lomi.entity.in.ExecuteIn;
@@ -35,6 +36,7 @@ public class DBController extends BaseController {
 	
 	@ApiOperation(value = "单线程插入，1W条，简单数据，耗时月26秒",notes="TPS约400")
 	@RequestMapping(value="insert/singleThread", method= {RequestMethod.GET})
+	@ShowParam
 	public String singleThread(ExecuteIn in) throws Exception{
 		
 		for(int i= 0;i<in.getExecuteCount();i++) {
