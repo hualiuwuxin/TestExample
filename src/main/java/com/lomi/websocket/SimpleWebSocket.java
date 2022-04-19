@@ -8,6 +8,7 @@ import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
+import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
 import org.slf4j.Logger;
@@ -16,16 +17,23 @@ import org.springframework.stereotype.Component;
 
 import com.lomi.controller.JsonController;
 
-@ServerEndpoint("/websocket")
+
+
+/**
+ * 每个连接会创建一个新的 ServerEndpoint 实例，所以成员变量 是当前ServerEndpoint私有的
+ * @author ZHANGYUKUN
+ *
+ */
+@ServerEndpoint(value="/websocket/{path}",configurator = SocketServerConfigurator.class)
 @Component
-public class MyWebSocket {
+public class SimpleWebSocket {
 	private static final Logger logger = LoggerFactory.getLogger(JsonController.class);
 	
     //静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
     private static int onlineCount = 0;
      
     //concurrent包的线程安全Set，用来存放每个客户端对应的MyWebSocket对象。若要实现服务端与单一客户端通信的话，可以使用Map来存放，其中Key可以为用户标识
-    private static CopyOnWriteArraySet<MyWebSocket> webSocketSet = new CopyOnWriteArraySet<MyWebSocket>();
+    private static CopyOnWriteArraySet<SimpleWebSocket> webSocketSet = new CopyOnWriteArraySet<SimpleWebSocket>();
      
     //与某个客户端的连接会话，需要通过它来给客户端发送数据
     private Session session;
@@ -61,8 +69,9 @@ public class MyWebSocket {
      * @throws IOException 
      */
     @OnMessage
-    public void onMessage(String message, Session session) throws IOException {
+    public void onMessage(@PathParam("path") String path, String message, Session session) throws IOException {
     	i++;
+    	logger.warn("来自客户端" + session.getId() + "的path:" + path+i);
         logger.warn("来自客户端" + session.getId() + "的消息:" + message+i);
         sendMessage(message+i);
     }
@@ -93,10 +102,10 @@ public class MyWebSocket {
     }
  
     public static synchronized void addOnlineCount() {
-        MyWebSocket.onlineCount++;
+        SimpleWebSocket.onlineCount++;
     }
      
     public static synchronized void subOnlineCount() {
-        MyWebSocket.onlineCount--;
+        SimpleWebSocket.onlineCount--;
     }
 }
