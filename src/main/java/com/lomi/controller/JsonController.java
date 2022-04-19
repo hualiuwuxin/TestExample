@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 import com.lomi.entity.Goods;
 import com.lomi.entity.in.ExecuteIn;
+import com.lomi.websocket.WebSocketServer;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,10 +28,17 @@ public class JsonController extends BaseController {
 	private static final Logger logger = LoggerFactory.getLogger(JsonController.class);
 
 	
+	@Autowired
+	WebSocketServer webSocketServer;
+	
 	
 	@ApiOperation(value = "单线程，单线程随机50W个简单对象，400毫秒")
 	@RequestMapping(value = "randomEfficiency", method = { RequestMethod.GET })
 	public String randomEfficiency(ExecuteIn in) throws Exception {
+		System.out.println( webSocketServer );
+		
+		
+		
 		List<Goods> list = getList(10000*in.getExecuteCount());
 		logger.debug( list.size()+"" );
 		return "OK";
