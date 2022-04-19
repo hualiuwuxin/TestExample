@@ -10,11 +10,17 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+import com.lomi.controller.JsonController;
 
 @ServerEndpoint("/websocket")
 @Component
 public class MyWebSocket {
+	private static final Logger logger = LoggerFactory.getLogger(JsonController.class);
+	
     //静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
     private static int onlineCount = 0;
      
@@ -23,6 +29,8 @@ public class MyWebSocket {
      
     //与某个客户端的连接会话，需要通过它来给客户端发送数据
     private Session session;
+    
+    private static int i = 0;
      
     /**
      * 连接建立成功调用的方法
@@ -33,7 +41,7 @@ public class MyWebSocket {
         this.session = session;
         webSocketSet.add(this);     //加入set中
         addOnlineCount();           //在线数加1
-        System.out.println("有新连接加入！当前在线人数为" + getOnlineCount());
+        logger.warn("有新连接加入！当前在线人数为" + getOnlineCount());
     }
      
     /**
@@ -43,27 +51,20 @@ public class MyWebSocket {
     public void onClose(){
         webSocketSet.remove(this);  //从set中删除
         subOnlineCount();           //在线数减1    
-        System.out.println("有一连接关闭！当前在线人数为" + getOnlineCount());
+        logger.warn("有一连接关闭！当前在线人数为" + getOnlineCount());
     }
      
     /**
      * 收到客户端消息后调用的方法
      * @param message 客户端发送过来的消息
      * @param session 可选的参数
+     * @throws IOException 
      */
     @OnMessage
-    public void onMessage(String message, Session session) {
-        System.out.println("来自客户端的消息:" + message);
-         
-        //群发消息
-        for(MyWebSocket item: webSocketSet){             
-            try {
-                item.sendMessage(message);
-            } catch (IOException e) {
-                e.printStackTrace();
-                continue;
-            }
-        }
+    public void onMessage(String message, Session session) throws IOException {
+    	i++;
+        logger.warn("来自客户端" + session.getId() + "的消息:" + message+i);
+        sendMessage(message+i);
     }
      
     /**
@@ -73,7 +74,7 @@ public class MyWebSocket {
      */
     @OnError
     public void onError(Session session, Throwable error){
-        System.out.println("发生错误");
+        logger.warn("发生错误");
         error.printStackTrace();
     }
      
