@@ -15,19 +15,23 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.lomi.controller.JsonController;
-
 
 
 /**
  * 每个连接会创建一个新的 ServerEndpoint 实例，所以成员变量 是当前ServerEndpoint私有的
+ * websocket可以 带有用户参数的地方只有 自定义协议 和  PathParam，当然还有message 体
+ * 
+ * 
  * @author ZHANGYUKUN
+ *
+ *
+ *
  *
  */
 @ServerEndpoint(value="/websocket/{path}",configurator = SocketServerConfigurator.class)
 @Component
 public class SimpleWebSocket {
-	private static final Logger logger = LoggerFactory.getLogger(JsonController.class);
+	private static final Logger logger = LoggerFactory.getLogger(SimpleWebSocket.class);
 	
     //静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
     private static int onlineCount = 0;

@@ -7,19 +7,19 @@ import javax.websocket.server.ServerEndpointConfig;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
- * websocketserver 鉴权
+ * 鉴权
+ * @author ZHANGYUKUN
+ *
  */
-@Component
 public class SocketServerConfigurator extends ServerEndpointConfig.Configurator {
 	private final Logger logger = LoggerFactory.getLogger(SocketServerConfigurator.class);
 
 	/**
-	 * token鉴权认证
+	 * token鉴权认证，我们可以在自定义协议里面带上用户标识，这样就可以识别用户了
 	 *
 	 * @param originHeaderValue
 	 * @return

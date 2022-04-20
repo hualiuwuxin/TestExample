@@ -16,7 +16,8 @@
        
       //判断当前浏览器是否支持WebSocket
       if('WebSocket' in window){
-          websocket = new WebSocket("ws://localhost/te/websocket/pathParam/",["token"]);
+          //使用子协议 websocket = new WebSocket("ws://localhost/te/websocket/pathParam/",["token"]);
+          websocket = new WebSocket("ws://localhost/te/websocket/pathParam/");
       }
       else{
           alert('Not support websocket')
