@@ -19,8 +19,6 @@ public class Application {
         System.out.println("*****************************"); 
         System.in.read(); 
 
-
-        
         
     }
     
