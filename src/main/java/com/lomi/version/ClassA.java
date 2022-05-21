@@ -8,6 +8,10 @@ public class ClassA {
 
     private int weight;
 
+    private int height;
+
+
+
     public String getName() {
         return name;
     }
@@ -30,5 +34,13 @@ public class ClassA {
 
     public void setWeight(int weight) {
         this.weight = weight;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 }
