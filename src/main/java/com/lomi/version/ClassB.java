@@ -2,6 +2,12 @@ package com.lomi.version;
 
 public class ClassB {
 
+    private String name;
+
+    private int stock;
+
+
+
     public String getName() {
         return name;
     }
@@ -10,9 +16,6 @@ public class ClassB {
         this.name = name;
     }
 
-    private String name;
-
-    private int stock;
 
 
 
