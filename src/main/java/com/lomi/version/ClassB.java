@@ -9,6 +9,7 @@ public class ClassB {
 
 
     public String getName() {
+        //B
         return name;
     }
 
