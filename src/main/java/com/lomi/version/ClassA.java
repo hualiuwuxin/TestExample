@@ -10,9 +10,8 @@ public class ClassA {
 
     private int height;
 
-
-
     public String getName() {
+        //?
         return name;
     }
 
