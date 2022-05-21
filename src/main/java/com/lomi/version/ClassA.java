@@ -6,6 +6,17 @@ public class ClassA {
 
     private int age;
 
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    private int weight;
+
+
     public String getName() {
         return name;
     }
