@@ -18,7 +18,7 @@ import org.springframework.util.CollectionUtils;
 /**
  * 自定义定时器
  */
-//@Component
+@Component
 public class MyScheduling1 implements SchedulingConfigurer {
 
     ExecutorService ex = new ThreadPoolExecutor(1,
@@ -36,7 +36,7 @@ public class MyScheduling1 implements SchedulingConfigurer {
 
         PeriodicTrigger periodicTrigger = new PeriodicTrigger(5,TimeUnit.SECONDS);
         registrar.addTriggerTask(task, a -> {
-                    return new CronTrigger("").nextExecutionTime(a);
+                    return new CronTrigger("0/5 * * * * ?").nextExecutionTime(a);
                 });
 
     }
