@@ -30,6 +30,8 @@ public class MyScheduling1 implements SchedulingConfigurer {
     @Override
     public void configureTasks(ScheduledTaskRegistrar registrar) {
 
+  
+
         Runnable task = ()->{
             ex.execute( ()->System.out.println( LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))  )  );
         };
