@@ -2,7 +2,6 @@ package com.lomi.config;
 
 import java.util.ArrayList;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

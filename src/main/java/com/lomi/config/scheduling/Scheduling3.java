@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import java.util.Timer;
 
 
-@Component
+//@Component
 public class Scheduling3 {
 
     public void s1(){
