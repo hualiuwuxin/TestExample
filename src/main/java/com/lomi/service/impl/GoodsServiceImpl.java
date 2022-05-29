@@ -19,18 +19,8 @@ import com.lomi.service.GoodsService;
 @Service
 public class GoodsServiceImpl implements GoodsService {
 
-	public static String topicName = "topic3";
 
-	Properties properties = new Properties();
-	{
-		properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.1.200:9092");
-		properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-		properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-	}
 	
-	@Autowired
-	KafkaTemplate<String,Object> kafkaTemplate;
-
 	@Autowired
 	GoodsExMapper goodsExMapper;
 
@@ -48,6 +38,11 @@ public class GoodsServiceImpl implements GoodsService {
 		goodsExMapper.addBatch(goodsList);
 	}
 
+	public static String topicName = "topic3";
+	
+	@Autowired
+	KafkaTemplate<String,Object> kafkaTemplate;
+	
 	@Override
 	@Transactional(transactionManager ="kafkaAndDBTransactionManager")
 	public void transationKafkaMsg(Goods goods,Boolean throwException) throws Exception {
