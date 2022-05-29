@@ -31,7 +31,7 @@ public class KafkaConsumerTest {
 	
 	
 	/**
-	 * 同步确认消息
+	 * 自动确认消息
 	 * 
 	 * @throws InterruptedException
 	 * @throws ExecutionException
@@ -108,7 +108,10 @@ public class KafkaConsumerTest {
 				System.out.println(messageNo + "=======receive: key = " + record.key() + ", value = "+ record.value() + " offset===" + record.offset());
 				messageNo++;
 			}
-			consumer.commitSync();
+			
+			if( !msgList.isEmpty() ) {
+				consumer.commitSync();
+			}
 			
 		}
 		
@@ -148,13 +151,17 @@ public class KafkaConsumerTest {
 			for (ConsumerRecord<String, String> record : msgList) {
 				System.out.println(messageNo + "=======receive: key = " + record.key() + ", value = "+ record.value() + " offset===" + record.offset());
 				messageNo++;
+				
 			}
-			consumer.commitAsync(new OffsetCommitCallback() {
-				@Override
-				public void onComplete(Map<TopicPartition, OffsetAndMetadata> offsets, Exception exception) {
-					System.out.println("异步确认");
-				}
-			});
+			
+			if( !msgList.isEmpty() ) {
+				consumer.commitAsync(new OffsetCommitCallback() {
+					@Override
+					public void onComplete(Map<TopicPartition, OffsetAndMetadata> offsets, Exception exception) {
+						System.out.println("异步确认");
+					}
+				});
+			}
 		}
 		
 		//consumer.close();
