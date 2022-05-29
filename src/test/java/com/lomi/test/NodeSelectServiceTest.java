@@ -14,7 +14,7 @@ public class NodeSelectServiceTest {
     public void select(){
         NodeSelectService nodeSelectService = new NodeSelectService();
         nodeSelectService.select(1);
-        nodeSelectService.select(-1);
+        nodeSelectService.select(-1); 
 
     }
 
