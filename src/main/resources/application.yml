@@ -2,6 +2,8 @@
 spring:
   profiles:
     active: dev
+  jackson:    serialization:      write-dates-as-timestamps: true
+      
   datasource:
     username: root
     password: root
