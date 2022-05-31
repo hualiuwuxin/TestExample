@@ -10,4 +10,12 @@ public interface GoodsService {
 
 	void addBatch(List<Goods> goodsList);
 	
+	/**
+	 * 插入数据库的时候发送一条kafka事务消息
+	 * @param goods
+	 * @param throwException 
+	 * @throws Exception 
+	 */
+	void transationKafkaMsg(Goods goods, Boolean throwException) throws Exception;
+	
 }

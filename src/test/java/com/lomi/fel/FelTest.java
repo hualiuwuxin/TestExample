@@ -196,9 +196,9 @@ public class FelTest {
 		
 		
 		
-		FelEngine felEngine = new FelEngineImpl(ctx);
+		/*FelEngine felEngine = new FelEngineImpl(ctx);
 		Object eval = felEngine.eval("'天气:'+天气+';温度:'+温度");
-		System.out.println(eval);
+		System.out.println(eval);*/
 	}
 
 	/**
@@ -335,7 +335,7 @@ public class FelTest {
 		Long start = System.currentTimeMillis();
 		Integer a = 0;
 		Add add = new Add();
-		for(int i = 0;i<2000000000;i++) {
+		for(int i = 0;i<200;i++) {
 			a= (Integer) add.call( new Integer[] {a,1} );
 		}
 		Long end = System.currentTimeMillis();
@@ -353,7 +353,7 @@ public class FelTest {
 		FelEngine felEngine = new FelEngineImpl();   
 		felEngine.addFun( new Add() );
 		Integer a = 0;
-		for(int i = 0;i<1000000;i++) {
+		for(int i = 0;i<100;i++) {
 			a = (Integer) felEngine.eval("add("+ a +",1)");
 		}
 		Long end = System.currentTimeMillis();
@@ -378,7 +378,7 @@ public class FelTest {
 		//不知道为啥编译会把int类型改成double。
 		Expression expression  = felEngine.compile("add(a,1)",felContext);
 		
-		for(int i = 0;i<200000000;i++) {
+		for(int i = 0;i<200;i++) {
 			a =  expression.eval(felContext);
 		}
 		

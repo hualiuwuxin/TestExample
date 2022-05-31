@@ -6,6 +6,7 @@
 	<artifactId>TestExample</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
+
 	<dependencies>
 		<!-- junit -->
 		<dependency>
@@ -41,13 +42,13 @@
 		</dependency>
 		<!-- fastjson -->
 		<dependency>
-		    <groupId>com.alibaba</groupId>
-		    <artifactId>fastjson</artifactId>
-		    <version>1.2.76</version>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.76</version>
 		</dependency>
-		
-		
-		
+
+
+
 		<!-- spring-boot-starter-web -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -68,18 +69,18 @@
 		</dependency>
 		<!-- spring——rediss——tarter -->
 		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-data-redis</artifactId>
-		    <version>2.5.5</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+			<version>2.5.5</version>
 		</dependency>
-		
+
 		<!-- aspects -->
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-aspects</artifactId>
-		    <version>5.3.14</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>5.3.14</version>
 		</dependency>
-	
+
 		<!-- mysql -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -98,10 +99,10 @@
 			<artifactId>pagehelper-spring-boot-starter</artifactId>
 			<version>1.3.1</version>
 		</dependency>
-		
-		
 
-		<!-- swagger2  -->
+
+
+		<!-- swagger2 -->
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
@@ -123,9 +124,9 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.9.2</version>
 		</dependency>
-		
-		
-		
+
+
+
 		<!-- fdfs -->
 		<dependency>
 			<groupId>net.oschina.zcx7878</groupId>
@@ -136,44 +137,47 @@
 
 		<!-- redis -->
 		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-data-redis</artifactId>
-		    <version>2.5.5</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+			<version>2.5.5</version>
 		</dependency>
-		
-	<!-- 	<dependency>
-		    <groupId>org.redisson</groupId>
-		    <artifactId>redisson-spring-boot-starter</artifactId>
-		    <version>3.15.6</version>
-		</dependency> -->
-		
+
+		<!-- <dependency> <groupId>org.redisson</groupId> <artifactId>redisson-spring-boot-starter</artifactId> 
+			<version>3.15.6</version> </dependency> -->
+
 		<!-- fel -->
-		 <dependency>
-		    <groupId>org.eweb4j</groupId>
-		    <artifactId>fel</artifactId>
-		    <version>0.8</version>
+		<dependency>
+			<groupId>org.eweb4j</groupId>
+			<artifactId>fel</artifactId>
+			<version>0.8</version>
 		</dependency>
-		
+
 		<!-- websocket -->
 		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-websocket</artifactId>
-		    <version>2.5.5</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+			<version>2.5.5</version>
 		</dependency>
-		
+
 		<!-- arthas 监控人插件 -->
 		<dependency>
-		    <groupId>com.taobao.arthas</groupId>
-		    <artifactId>arthas-spring-boot-starter</artifactId>
-		    <version>3.6.0</version>
+			<groupId>com.taobao.arthas</groupId>
+			<artifactId>arthas-spring-boot-starter</artifactId>
+			<version>3.6.0</version>
 		</dependency>
-		
-<!-- 		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-actuator</artifactId>
-		    <version>2.5.5</version>
+
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-actuator</artifactId> 
+			<version>2.5.5</version> </dependency> -->
+
+		<!--kafka -->
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+			<version>2.7.7</version>
 		</dependency>
-		 -->
+
+
+
 	</dependencies>
 
 
@@ -193,21 +197,21 @@
 
 			<!-- 打包 -->
 			<plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <!--可以把依赖的包都打包到生成的Jar包中-->
-                            <goal>repackage</goal>
-                        </goals>
-                        <configuration>
-                            <attach>false</attach>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-			
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<!--可以把依赖的包都打包到生成的Jar包中 -->
+							<goal>repackage</goal>
+						</goals>
+						<configuration>
+							<attach>false</attach>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
 
@@ -215,6 +219,5 @@
 	<properties>
 		<skipTests>true</skipTests>
 	</properties>
-
 
 </project>
