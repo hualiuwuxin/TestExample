@@ -6,7 +6,7 @@ import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.lomi.controller.format.DateDeserializer;
+import com.lomi.serialize.DateDeserializer;
 
 public class FormatIn implements Serializable {
 	

@@ -1,4 +1,4 @@
-package com.lomi.fdfs;
+package com.lomi.threeModule.fdfs;
 
 import java.io.IOException;
 import java.util.Arrays;

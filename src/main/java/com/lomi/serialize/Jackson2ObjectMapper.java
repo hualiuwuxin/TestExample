@@ -1,4 +1,4 @@
-package com.lomi.controller.format;
+package com.lomi.serialize;
 
 import java.math.BigInteger;
 

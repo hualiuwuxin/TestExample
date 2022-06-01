@@ -1,4 +1,4 @@
-package com.lomi.controller.format;
+package com.lomi.serialize;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -32,7 +32,7 @@ public class DateDeserializer extends JsonDeserializer<Date> {
           
           if ( text != null && "".equals( text.trim() )  ) {
         	  DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        	  try {
+        	try {
 				return df.parse(text);
 			} catch (ParseException e) {
 				e.printStackTrace();

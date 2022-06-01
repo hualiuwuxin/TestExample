@@ -9,6 +9,8 @@ import org.csource.common.NameValuePair;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.lomi.threeModule.fdfs.FDFSUtil;
+
 public class FDFSUtilTest {
 	
 	@Before

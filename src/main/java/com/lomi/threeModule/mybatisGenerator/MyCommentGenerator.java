@@ -1,4 +1,4 @@
-package com.lomi.mybatisGenerator;
+package com.lomi.threeModule.mybatisGenerator;
 
 import static org.mybatis.generator.internal.util.StringUtility.isTrue;
 
