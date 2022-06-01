@@ -53,6 +53,8 @@ public class FormatController extends BaseController {
 	@ResponseBody
 	public FormatOut json(@RequestBody @Validated FormatIn in) throws Exception {
 		
+		System.out.println( in.getDate() );
+		
 		FormatOut out= new FormatOut();
 		return out;
 	}

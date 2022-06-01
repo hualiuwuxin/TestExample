@@ -30,7 +30,7 @@ public class DateDeserializer extends JsonDeserializer<Date> {
     public Date deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
     	  String text = p.getText();
           
-          if ( text != null && "".equals( text.trim() )  ) {
+          if ( text != null && !"".equals( text.trim() )  ) {
         	  DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         	try {
 				return df.parse(text);
