@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -24,9 +25,9 @@ public class LamddaTest {
 
 	@Test
 	public void test1(){
-		Consumer sysout = System.out::println;
+		Consumer<String> sysout = System.out::println;
 
-		sysout.accept("张蛙哈哈哈哈");
+		sysout.accept("哇哈哈哈哈");
 
 
 	}
@@ -178,23 +179,44 @@ public class LamddaTest {
 	 */
 	@Test
 	public void stram3(){
-		Goods[] array = new Goods[10];
+		Goods[] array = new Goods[3];
 		array[0] = Goods.randomGoods();
+		array[1] = Goods.randomGoods();
+		array[2] = Goods.randomGoods();
+		List<String> data = Arrays.asList("1","2","9","0");
+		List<String> dataNull = Arrays.asList();
 
 		//Stream
 		//Stream.of( array ).flatMap();
-
-		//怕排序
-		Stream.of( array ).sorted();
-		Stream.of( array ).sorted(new Comparator<Goods>() {
+		
+		//排序(实现Comparable的可以直接排序，升序)
+		System.out.println("自带排序：" + Stream.of( 1,3,9,5 ).sorted().collect( Collectors.toList() )  );
+		
+		//或者传入Comparator
+		List<Goods> list2 = Stream.of( array ).sorted(new Comparator<Goods>() {
 			@Override
 			public int compare(Goods o1, Goods o2) {
 				return (int)(o1.getId()-o2.getId());
 			}
-		});
-
+		}).collect( Collectors.toList() );
+		System.out.println("指定排序：" + JSONObject.toJSONString( list2 )  );
+		
+		
+		
+		
 		//reduce
-
+		Optional<String>  op = data.stream().reduce( (a,b)->a+b );
+		System.out.println( op.get() );
+		
+		Optional<String>  op2 = dataNull.stream().reduce( (a,b)->a+b );
+		System.out.println( op2.orElseGet( ()->"1" ) );
+		//System.out.println( op2.orElseThrow(()-> new RuntimeException("为空则抛出") ) );
+		//System.out.println( op2.orElseThrow(()-> new RuntimeException("为空则抛出") ) );
+		
+		
+		
+		
+			
 		//toCollection
 
 		//summarize
