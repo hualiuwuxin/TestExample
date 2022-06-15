@@ -3,8 +3,13 @@ package com.lomi.lamdda;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -13,6 +18,8 @@ import org.junit.Test;
 
 import com.alibaba.fastjson.JSONObject;
 import com.lomi.entity.Goods;
+
+import cn.hutool.core.stream.CollectorUtil;
 
 /**
  * lamdda 测试
@@ -202,9 +209,29 @@ public class LamddaTest {
 		System.out.println("指定排序：" + JSONObject.toJSONString( list2 )  );
 		
 		
+		//toArray
+		String[] ar =  data.stream().toArray( item-> {
+			 return new String[item];
+		 }  );
+		
+		System.out.println( "数组：" +ar.length );
+		 
+		//peek 不会终止流的遍历(而且是是用的元素前调用的，调试很好用)
+		data.stream().peek(System.out::println).forEach(System.out::println);
 		
 		
-		//reduce
+		List<List<Goods>> list = new ArrayList<>();
+		list.add(  Arrays.asList( Goods.randomGoods(),Goods.randomGoods() ) );
+		list.add(  Arrays.asList( Goods.randomGoods(),Goods.randomGoods() ) );
+		list.add(  Arrays.asList( Goods.randomGoods(),Goods.randomGoods() ) );
+		
+		
+		//flatMap把多维度的集合展开
+		Optional<Long>  sum = list.stream().flatMap( item->item.stream() ).map(Goods::getId).reduce( Math::addExact );
+		System.out.println("求和:" +  sum.orElse(-1L) );
+		
+		
+		//reduce,可以理解成把一个集合的数据合并起来
 		Optional<String>  op = data.stream().reduce( (a,b)->a+b );
 		System.out.println( op.get() );
 		
@@ -214,16 +241,34 @@ public class LamddaTest {
 		//System.out.println( op2.orElseThrow(()-> new RuntimeException("为空则抛出") ) );
 		
 		
-		
-		
 			
 		//toCollection
+		List<String> aaa =  dataNull.stream().collect( Collectors.toCollection(()->new LinkedList<String>())  );
+		System.out.println( "toCollection:" + aaa.getClass() );
+		
 
-		//summarize
+		//summarize(汇总)
+		 Long count = dataNull.stream().collect( Collectors.summarizingDouble( item->Double.valueOf(item) ) ).getCount();
+		 System.out.println( count );
 
-		//分组分区
+		//分组
+	 	Map<Long,Set<Goods>> map =    list2.stream().collect( Collectors.groupingBy( Goods::getId ,LinkedHashMap::new, Collectors.toSet() ) );
+		System.out.println( map.getClass() );
+		
+		//分区 （相当于只有两个组的分组）
+		Map<Boolean, List<Goods>> pt  =  list2.stream().collect( Collectors.partitioningBy((item->true))  );
+		System.out.println(  pt.get(true).size() );
+		System.out.println(  pt.get(false).size() );
+		
+		
+		 
+		 Supplier<Map<String,String>> s =  HashMap<String,String>::new;
+		 System.out.println( s.get().getClass() );
 
-		//collectingAndThen
+		//collectingAndThen(先生产集合，然后处理一下)
+		 Set<Long> keySet =  list2.stream().collect( Collectors.collectingAndThen(Collectors.groupingBy( Goods::getId ,LinkedHashMap::new, Collectors.toSet() ), item->item.keySet() )  );
+		 System.out.println(  keySet );
+		 
 	}
 
 
@@ -239,8 +284,6 @@ public class LamddaTest {
 		straw.deat2();
 		straw.deat1();
 		straw.deat2();
-
-
 	}
 
 
