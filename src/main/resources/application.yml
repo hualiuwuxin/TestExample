@@ -25,8 +25,8 @@ mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml
   
 #启动arthas编译调试跟踪问题 ，不写默认就是这个端口
-arthas:  ip: 0.0.0.0
-  http-port: 8563
+#arthas:  #ip: 0.0.0.0
+ # http-port: 8563
   
   
 
