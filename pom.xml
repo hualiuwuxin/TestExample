@@ -4,7 +4,6 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.lomi</groupId>
 	<artifactId>TestExample</artifactId>
-	<packaging>pom</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 
 
@@ -200,7 +199,7 @@
 				<configuration>
 					<!--<source>9</source>
 					<target>9</target>-->
-					<release>9</release>
+					<release>8</release>
 				</configuration>
 			</plugin>
 
