@@ -56,12 +56,8 @@ public class ValidateController extends BaseController {
 		
 		System.out.println( JSONObject.toJSONString( in ) );
 
-		if(in != null){
-			throw new RuntimeException("111");
-		}
 
-
-		return null;
+		return "OK";
 	}
 	
 	
