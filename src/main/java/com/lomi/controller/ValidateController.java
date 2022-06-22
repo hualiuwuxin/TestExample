@@ -55,6 +55,10 @@ public class ValidateController extends BaseController {
 	public String t2(@RequestBody @Validated UserIn  in) throws Exception {
 		
 		System.out.println( JSONObject.toJSONString( in ) );
+		if( in != null ){
+			throw new  Exception("抛出异常");
+		}
+
 
 
 		return "OK";

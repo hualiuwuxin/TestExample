@@ -16,6 +16,7 @@ public class UserPakeageIn {
 	@NotBlank(message = "UserPakeageIn-name不能是null")
 	private String name;
 
+	//标注向下传递验证
 	@Valid
 	private UserIn user;
 	
