@@ -10,7 +10,6 @@ import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-@ComponentScan("com.lomi") 
 @MapperScan("com.lomi.mapper")
 @EnableScheduling
 @EnableKafka
