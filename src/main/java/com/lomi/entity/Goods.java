@@ -4,6 +4,11 @@ import com.lomi.utils.CodeUtil;
 
 import cn.hutool.core.util.IdUtil;
 
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 public class Goods {
     private Long id;
 
@@ -89,7 +94,22 @@ public class Goods {
     }
 	
 	public static void main(String[] args) {
-		 System.out.println( Long.MAX_VALUE ); 
+
+        Snowflake snowflake = new Snowflake(new Date(), 0, 0, false, 409600000);
+        Set<Long> ids = new HashSet<>();
+
+        Long a = System.currentTimeMillis();
+        for(int i = 0;i<409600;i++   ){
+            snowflake.nextId();
+           // ids.add( snowflake.nextId() );
+        }
+        System.out.println( System.currentTimeMillis()-a );
+        System.out.println( ids.size() );
+
+
+
 	}
-    
+
+
+
 }
